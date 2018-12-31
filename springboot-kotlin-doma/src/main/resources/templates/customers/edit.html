@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Title</title>
+    <link th:href="@{/css/foundation.min.css}" rel="stylesheet" />
+</head>
+<body>
+    <div class="grid-x grid-margin-y">
+        <div class="cell small-8 large-offset-2">
+            <h1>顧客編集</h1>
+            <form th:method="patch" th:action="@{./}" th:object="${customerForm}">
+                <label>Name:</label>
+                <input type="text" th:field="*{name}" />
+                <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
+                
+                <label>Email:</label>
+                <input type="text" th:field="*{email}" />
+                <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p>
+
+                <input class="button" type="submit" value="submit" />
+            </form>
+        </div>
+    </div>
+</body>
+</html>
