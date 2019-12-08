@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Title</title>
+    <link th:href="@{/css/foundation.min.css}" rel="stylesheet" />
+</head>
+<body>
+    <div class="grid-x grid-margin-y">
+        <div class="cell small-8 large-offset-2">
+            <h1>顧客情報</h1>
+            <table class="hover">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td th:text="${customer.name}"></td>
+                        <td th:text="${customer.email}"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

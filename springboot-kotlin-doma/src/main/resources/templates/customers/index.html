@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Title</title>
+    <link th:href="@{/css/foundation.min.css}" rel="stylesheet" />
+</head>
+<body>
+    <div class="grid-x grid-margin-y">
+        <div class="cell small-8 large-offset-2">
+            <h1>顧客一覧</h1>
+            <div align="right">
+                <form th:object="${customer}" th:action="@{/customers/new}" th:method="get">
+                    <input class="button" type="submit" value="register" />
+                </form>
+            </div>
+            <table class="hover">
+                <thead>
+                    <tr>
+                        <th>No.</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody th:unless="${customers.isEmpty()}">
+                    <tr th:each="customer: ${customers}">
+                        <td th:text="${customer.id}"></td>
+                        <td th:text="${customer.name}"></td>
+                        <td th:text="${customer.email}"></td>
+                        <td style="display: inline-block;">
+                            <div class="button-group">
+                                <form th:object="${customer}" th:action="@{/customers/__${customer.id}__/edit}" th:method="get">
+                                    <input class="button secondary small" type="submit" value="edit" />
+                                </form>
+                                &nbsp;
+                                <form th:object="${customer}" th:action="@{/customers/__${customer.id}__}" th:method="delete">
+                                    <input class="button alert small" type="submit" value="delete" />
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>
