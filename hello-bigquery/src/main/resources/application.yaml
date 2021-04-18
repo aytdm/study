@@ -1,0 +1,11 @@
+spring:
+  profiles:
+    active: local
+  cloud:
+    gcp:
+      credentials:
+        encoded-key: ${BIGQUERY_CREDENTIAL_BASE64}
+      bigquery:
+        enabled: true
+        project-id: ${BIGQUERY_PROJECT_ID}
+        dataset-name: ${BIGQUERY_DATASET_NAME}
