@@ -9,7 +9,7 @@ import "screen_message.proto";
 import "keyboard_message.proto";
 import "google/protobuf/timestamp.proto";
 
-option go_package = "./";
+option go_package = "./;pb";
 
 message Laptop {
   string id = 1;
