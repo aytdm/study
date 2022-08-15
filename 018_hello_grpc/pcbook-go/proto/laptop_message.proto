@@ -10,6 +10,8 @@ import "keyboard_message.proto";
 import "google/protobuf/timestamp.proto";
 
 option go_package = "./;pb";
+option java_package = "com.aytdm.example.hellogrpc.pcbook.pb";
+option java_multiple_files = true;
 
 message Laptop {
   string id = 1;
