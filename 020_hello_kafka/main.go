@@ -40,6 +40,7 @@ func produce(ctx context.Context) {
 	w := kafka.NewWriter(kafka.WriterConfig{
 		Brokers: []string{brokerAddress1, brokerAddress2, brokerAddress3},
 		Topic:   topic,
+		Async:   true,
 		Logger:  l,
 	})
 
@@ -48,6 +49,12 @@ func produce(ctx context.Context) {
 		// to decide which partition (and consequently, which broker)
 		// the message gets published on
 		err := w.WriteMessages(ctx, kafka.Message{
+			Headers: []kafka.Header{
+				{
+					Key:   topic + strconv.Itoa(i),
+					Value: []byte(strconv.FormatInt(time.Now().Unix(), 10)),
+				},
+			},
 			Key: []byte(strconv.Itoa(i)),
 			// create an arbitrary message payload for the value
 			Value: []byte("this is message" + strconv.Itoa(i)),
@@ -78,12 +85,17 @@ func consume(ctx context.Context) {
 		Logger:  l,
 	})
 	for {
-		// the `ReadMessage` method blocks until we receive the next event
-		msg, err := r.ReadMessage(ctx)
+		// the `FetchMessage` method reads and return the next message from the r
+		msg, err := r.FetchMessage(ctx)
 		if err != nil {
 			panic("could not read message " + err.Error())
 		}
 		// after receiving the message, log its value
 		fmt.Println("received: ", string(msg.Value))
+
+		err = r.CommitMessages(ctx, msg)
+		if err != nil {
+			fmt.Printf("fetch process commit failed: %v", err)
+		}
 	}
 }
